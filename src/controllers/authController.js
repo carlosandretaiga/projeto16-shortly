@@ -37,5 +37,24 @@ export async function createUser(req, res) {
 }
 
 export async function login(req, res) {
+  const { email, password } = req.body;
+
+  try {
+    const user = await db.query(`
+    SELECT * FROM users WHERE users.email = $1
+    `[email]);
+
+    const userNotFound = user.rows[0];
+
+    if(userNotFound && bcrypt.compareSync(password, userNotFound.password)) {
+      const token = jwt.sign({ email }, JWT_SECRET_KEY)
+      return res.status(200).send({ token });
+    }
+
+    res.sendStatus(401);
+
+  } catch (error) {
+    res.status(500).send('There was a problem the login. Check the data entered.')
+  }
 
 }
