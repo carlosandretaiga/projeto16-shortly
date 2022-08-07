@@ -25,7 +25,6 @@ export async function createShorten(req, res) {
 
 };
 
-
 export async function getUrl(req, res){
   const { id } = req.params;
 
@@ -48,7 +47,6 @@ export async function getUrl(req, res){
     const errors = error.details.map(detail => detail.message);
     res.status(422).send(errors);
   }
-
 };
 
 
@@ -79,7 +77,23 @@ export async function getOpenShortUrl(req, res){
   }
 };
 
-
 export async function deleteUrl(req, res){
+  const { id } = req.params; 
+
+  try {
+    const result = await db.query(`
+    DELETE FROM urls WHERE urls.id = $1
+    `, [id]);
+
+    if(result.rowCount === 0) {
+      return res.sendStatus(404);
+    }
+
+    res.sendStatus(204);
+    
+  } catch (error) {
+    const errors = error.details.map(detail => detail.message);
+    res.status(422).send(errors);
+  }
 
 };
