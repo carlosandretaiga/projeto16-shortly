@@ -8,6 +8,9 @@ const { JWT_SECRET_KEY } = process.env;
 export async function validateToken(req, res, next) {
   const { authorization } = req.headers;
 
+  console.log(authorization);
+  console.log(JWT_SECRET_KEY);
+
   const checkingAuthorization = authorization?.match(/^(Bearer )/g)
 
   if(!checkingAuthorization) {
@@ -15,6 +18,8 @@ export async function validateToken(req, res, next) {
   }
 
   const token = authorization?.replace("Bearer ", "").trim();
+
+  console.log(token);
 
   if(!token) {
     return res.sendStatus(401);
@@ -24,15 +29,17 @@ export async function validateToken(req, res, next) {
 
     const data = jwt.verify(token, JWT_SECRET_KEY);
 
+    console.log(data);
+
     const user = await db.query(`
     SELECT users.id, users.name, users.email 
-    FROM users WHERE users.email = '${data.email}`
+    FROM users WHERE users.email = '${data.email}'`
     );
     res.locals.user = user.rows[0];
+
+    next();
   } catch (error) {
     res.status(500).send('There was a problem the token validator. Check the data entered.') 
   }
-
-  next();
 
 }
