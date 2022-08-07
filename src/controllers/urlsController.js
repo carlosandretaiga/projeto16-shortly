@@ -53,11 +53,33 @@ export async function getUrl(req, res){
 
 
 export async function getOpenShortUrl(req, res){
-
   const { shortUrl } = req.params;
 
+  try {
+    const result = await db.query(`
+    SELECT urls.url, urls."visitCount"
+    FROM urls WHERE urls."shortUrl" = $1`, [shortUrl]);
 
+    if(result.rowCount === 0) {
+      return res.sendStatus(404);
+    }
+
+    const { url, visitCount } = result.rows[0];
+
+    const updatedVisitCount = await db.query(`
+    UPDATE urls SET "visitCount" = '${visitCount + 1}'
+    WHERE urls."shortUrl" = $1
+    `, [shortUrl]);
+
+    res.redirect(url); 
+    
+  } catch (error) {
+    const errors = error.details.map(detail => detail.message);
+    res.status(422).send(errors);
+  }
 };
+
+
 export async function deleteUrl(req, res){
 
 };

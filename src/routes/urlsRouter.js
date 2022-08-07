@@ -1,5 +1,4 @@
 import { Router } from 'express';
-
 import { createShorten, getUrl, getOpenShortUrl, deleteUrl } from '../controllers/urlsController.js';
 import { validateToken } from '../middlewares/tokenValidator.js';
 import { validateUrl } from '../middlewares/urlValidator.js';
