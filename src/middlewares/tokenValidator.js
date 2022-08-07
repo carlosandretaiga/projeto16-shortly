@@ -8,8 +8,6 @@ const { JWT_SECRET_KEY } = process.env;
 export async function validateToken(req, res, next) {
   const { authorization } = req.headers;
 
-  console.log(authorization);
-  console.log(JWT_SECRET_KEY);
 
   const checkingAuthorization = authorization?.match(/^(Bearer )/g)
 
@@ -19,7 +17,6 @@ export async function validateToken(req, res, next) {
 
   const token = authorization?.replace("Bearer ", "").trim();
 
-  console.log(token);
 
   if(!token) {
     return res.sendStatus(401);
@@ -28,8 +25,6 @@ export async function validateToken(req, res, next) {
   try {
 
     const data = jwt.verify(token, JWT_SECRET_KEY);
-
-    console.log(data);
 
     const user = await db.query(`
     SELECT users.id, users.name, users.email 

@@ -27,9 +27,35 @@ export async function createShorten(req, res) {
 
 
 export async function getUrl(req, res){
+  const { id } = req.params;
+
+  try {
+    const result = await db.query(`
+    SELECT urls.id, urls."shortUrl", urls.url 
+    FROM urls WHERE urls.id = $1
+    `, [id]);
+
+    console.log(result); 
+
+    if(result.rowCount === 0) {
+      return res.sendStatus(404);
+    }
+
+    const url = result.rows[0];
+
+    res.status(200).send(url);
+  } catch (error) {
+    const errors = error.details.map(detail => detail.message);
+    res.status(422).send(errors);
+  }
 
 };
-export async function getShortUrl(req, res){
+
+
+export async function getOpenShortUrl(req, res){
+
+  const { shortUrl } = req.params;
+
 
 };
 export async function deleteUrl(req, res){
