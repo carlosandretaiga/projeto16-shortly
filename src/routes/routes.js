@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import authRouter from './authRouter';
-import urlsRouter from './urlsRouter';
-import usersRouter from './usersRouter';
-import rankingRouter from './rankingRouter';
+import authRouter from './authRouter.js';
+import urlsRouter from './urlsRouter.js';
+import usersRouter from './usersRouter.js';
+import rankingRouter from './rankingRouter.js';
 
 const router = Router();
 

@@ -1,11 +1,5 @@
 import joi from 'joi';
 
-const loginSchema = joi.object({
-  email: joi.string().email().required(),
-  password: joi.string().required()
-
-});
-
 const userSchema = joi.object({
   name: joi.string().required(),
   email: joi.string().email().required(),
@@ -13,4 +7,4 @@ const userSchema = joi.object({
   confirmPassword: joi.ref('password')
 });
 
-export default { loginSchema, userSchema };
+export default userSchema;

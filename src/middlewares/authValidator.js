@@ -1,6 +1,6 @@
+import loginSchema from "../schemas/loginSchema.js";
+import userSchema from "../schemas/userSchema.js";
 
-
-import {loginSchema, userSchema} from "../schemas/authSchema";
 
 export function validateLogin(req, res, next) {
   try {

@@ -1,5 +1,7 @@
 import { Router } from 'express';
 
+import { createShorten, getUrl, getShortUrl, deleteUrl } from '../controllers/urlsController.js';
+
 const urlsRouter = Router();
 
 urlsRouter.post('/urls/shorten', createShorten);

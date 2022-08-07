@@ -1,5 +1,7 @@
 import { Router } from 'express';
-import { validateLogin, validateUser } from '../middlewares/authValidator';
+import { validateLogin, validateUser } from '../middlewares/authValidator.js';
+
+import { createUser, login } from "../controllers/authController.js";
 
 const authRouter = Router();
 
