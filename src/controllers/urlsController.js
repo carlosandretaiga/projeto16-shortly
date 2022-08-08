@@ -49,7 +49,6 @@ export async function getUrl(req, res){
   }
 };
 
-
 export async function getOpenShortUrl(req, res){
   const { shortUrl } = req.params;
 
