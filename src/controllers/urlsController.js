@@ -8,7 +8,6 @@ export async function createShorten(req, res) {
   const { url } = req.body;
 
   const shortUrl = nanoid(8);
-  console.log(shortUrl);
 
   try {
     const result = await db.query(`
@@ -33,8 +32,6 @@ export async function getUrl(req, res){
     FROM urls WHERE urls.id = $1
     `, [id]);
 
-    console.log(result); 
-
     if(result.rowCount === 0) {
       return res.sendStatus(404);
     }
@@ -43,8 +40,7 @@ export async function getUrl(req, res){
 
     res.status(200).send(url);
   } catch (error) {
-    const errors = error.details.map(detail => detail.message);
-    res.status(422).send(errors);
+    res.status(422).send(error); 
   }
 };
 
@@ -70,8 +66,7 @@ export async function getOpenShortUrl(req, res){
     res.redirect(url); 
     
   } catch (error) {
-    const errors = error.details.map(detail => detail.message);
-    res.status(422).send(errors);
+    res.status(422).send(error); 
   }
 };
 
@@ -90,8 +85,6 @@ export async function deleteUrl(req, res){
     res.sendStatus(204);
     
   } catch (error) {
-    const errors = error.details.map(detail => detail.message);
-    res.status(422).send(errors);
+    res.status(422).send(error); 
   }
-
 };
