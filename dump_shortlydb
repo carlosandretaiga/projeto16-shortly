@@ -1,0 +1,195 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.4 (Ubuntu 14.4-1.pgdg22.04+1)
+-- Dumped by pg_dump version 14.4 (Ubuntu 14.4-1.pgdg22.04+1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: urls; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.urls (
+    id integer NOT NULL,
+    url text NOT NULL,
+    "shortUrl" text NOT NULL,
+    "visitCount" integer DEFAULT 0 NOT NULL,
+    "userId" integer,
+    "createdAt" timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.urls OWNER TO postgres;
+
+--
+-- Name: urls_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.urls_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.urls_id_seq OWNER TO postgres;
+
+--
+-- Name: urls_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.urls_id_seq OWNED BY public.urls.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    email character varying(255) NOT NULL,
+    password text NOT NULL,
+    "confirmPassword" text NOT NULL,
+    "createdAt" timestamp without time zone DEFAULT now()
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO postgres;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- Name: urls id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.urls ALTER COLUMN id SET DEFAULT nextval('public.urls_id_seq'::regclass);
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Data for Name: urls; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.urls (id, url, "shortUrl", "visitCount", "userId", "createdAt") FROM stdin;
+1	https://bootcampra.notion.site/Projeto-Shortly-API-4ffa110c0ebd4e83ad7302cfafd33133	KJdXfql7	2	1	2022-08-07 10:12:22.638541
+5	https://www.respondeai.com.br/conteudo/programacao/python	IIUMhfVr	0	2	2022-08-08 11:41:59.586315
+3	https://www.respondeai.com.br/conteudo/fisica/livro/david-halliday-jearl-walker-e-robert-resnick-fundamentos-de-fisica-volume-2-gravitacao-ondas-e-termodinamica-8-ed-edicao	-vf6HJu2	4	1	2022-08-08 11:38:32.001738
+6	https://www.respondeai.com.br/conteudo/fen-trans-mec-flu-trans-cal-e-trans-massa/conducao	Px9H_0Dg	2	2	2022-08-08 11:42:39.720992
+4	https://www.respondeai.com.br/conteudo/algebra-linear-e-geometria-analitica/retas-e-planos	zwFGS1Kc	3	1	2022-08-08 11:40:16.693511
+7	https://bootcampra.notion.site/Projeto-Shortly-API-4ffa110c0ebd4e83ad7302cfafd33133	uoBLEP_l	1	3	2022-08-08 15:22:47.403656
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users (id, name, email, password, "confirmPassword", "createdAt") FROM stdin;
+1	Andre	andre@driven.com.br	$2b$10$LQ8cp62sKIo/sF2CNRY1w.pmNSLqRSVk61.to72eRHvIpT4UdEByW	$2b$10$MAcVYY7Mh1xxd4H.dj/MCeeYfLXSEkBE.BFbLYDvDDUoyV4atmENO	2022-08-06 22:59:14.302192
+2	Ieda	ieda@driven.com.br	$2b$10$Id0P3LOe3TSpQC.lrfzKUeOr3SaVALxljH45xIolEUEYeHrBy4hqC	$2b$10$blsKytt5Gy8DSeTr.aeCEeQUn4WLKbQTs30Wk3Oe9durM6/eI4KmG	2022-08-06 23:00:31.765249
+3	Carlos	carlos@driven.com.br	$2b$10$a3ibP61lEV3gzk9lDoE/hurABNGGW7ArB2UmW9NAGR2s2KAB4o7XC	$2b$10$jZKvoXCZrE73IS0MYSkR.uNbIoJoucDalBZuVTyYL0ScDh1DILgKK	2022-08-08 15:20:50.09347
+\.
+
+
+--
+-- Name: urls_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.urls_id_seq', 7, true);
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 3, true);
+
+
+--
+-- Name: urls urls_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.urls
+    ADD CONSTRAINT urls_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: urls urls_shortUrl_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.urls
+    ADD CONSTRAINT "urls_shortUrl_key" UNIQUE ("shortUrl");
+
+
+--
+-- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_email_key UNIQUE (email);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: urls urls_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.urls
+    ADD CONSTRAINT "urls_userId_fkey" FOREIGN KEY ("userId") REFERENCES public.users(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
