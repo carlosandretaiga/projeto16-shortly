@@ -20,7 +20,6 @@ export async function getRanking(req, res) {
     res.status(200).send(ranking);
     
   } catch (error) {
-    const errors = error.details.map(detail => detail.message);
-    res.status(422).send(errors);
+    res.status(422).send(error); 
   }
 };

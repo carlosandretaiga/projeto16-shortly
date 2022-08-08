@@ -30,11 +30,12 @@ export async function validateToken(req, res, next) {
     SELECT users.id, users.name, users.email 
     FROM users WHERE users.email = '${data.email}'`
     );
+    console.log("Cheguei aqui, pode seguir!");
     res.locals.user = user.rows[0];
 
     next();
   } catch (error) {
-    res.status(500).send('There was a problem the token validator. Check the data entered.') 
+    res.status(422).send(error.message); 
   }
 
 }

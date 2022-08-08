@@ -5,6 +5,6 @@ import { validateToken } from '../middlewares/tokenValidator.js';
 
 const usersRouter = Router();
 
-usersRouter.get('/users/me',validateToken, usersMe);
+usersRouter.get('/users/me', validateToken, usersMe);
 
 export default usersRouter; 

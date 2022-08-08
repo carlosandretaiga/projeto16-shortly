@@ -19,8 +19,7 @@ export async function createShorten(req, res) {
     res.status(201).send({ shortUrl: shortUrl });
     
   } catch (error) {
-    const errors = error.details.map(detail => detail.message);
-    res.status(422).send(errors);
+    res.status(422).send(error); 
   }
 
 };

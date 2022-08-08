@@ -14,9 +14,7 @@ export function validateLogin(req, res, next) {
     next();
     
   } catch (error) {
-    const errors = error.details.map(detail => detail.message);
-    res.status(422).send(errors);
-    
+    res.status(422).send(error);  
   }
 }; 
 
@@ -31,7 +29,6 @@ export function validateUser(req, res, next) {
 
     next();
   } catch (error) {
-    const errors = error.details.map(detail => detail.message);
-    res.status(422).send(errors);
+    res.status(422).send(error); 
   }
 }
